@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var uri: Uri
     private lateinit var playerView: PlayerView
     private lateinit var player: SimpleExoPlayer
-    private lateinit var extractorsFactory: ExtractorsFactory
     private lateinit var mediaSource: MediaSource
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,11 +29,11 @@ class MainActivity : AppCompatActivity() {
             DefaultRenderersFactory(this),
             DefaultTrackSelector(),
             DefaultLoadControl())
-        extractorsFactory = DefaultExtractorsFactory()
         mediaSource = ExtractorMediaSource.Factory(DefaultHttpDataSourceFactory("ExoPlayerSample")).createMediaSource(uri)
         playerView.player = player
         player.prepare(mediaSource)
         player.playWhenReady = true
         player.seekTo(0)
+        player.repeatMode = Player.REPEAT_MODE_ALL
     }
 }
